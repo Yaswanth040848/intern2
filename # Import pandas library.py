@@ -1,0 +1,44 @@
+# Import pandas library
+import pandas as pd
+
+try:
+    # Load CSV dataset
+    df = pd.read_csv(r"C:\Users\DELL\Desktop\intern\task3\student_data.csv")
+
+    # Display dataset
+    print("Original Dataset:\n")
+    print(df)
+
+    # Check missing values
+    print("\nMissing Values:\n")
+    print(df.isnull().sum())
+
+    # Clean missing data
+    df['Name'].fillna("Unknown", inplace=True)
+    df['Marks'].fillna(df['Marks'].mean(), inplace=True)
+
+    print("\nCleaned Dataset:\n")
+    print(df)
+
+    # Filtering students with marks above 80
+    high_marks = df[df['Marks'] > 80]
+
+    print("\nStudents Scoring Above 80:\n")
+    print(high_marks)
+
+    # Grouping by Department
+    dept_avg = df.groupby('Department')['Marks'].mean()
+
+    print("\nAverage Marks by Department:\n")
+    print(dept_avg)
+
+except FileNotFoundError:
+    print("CSV file not found.")
+    print("Make sure student_data.csv exists in:")
+    print(r"C:\Users\DELL\Desktop\intern\task3")
+
+except Exception as e:
+    print("An error occurred:", e)
+
+finally:
+    print("\nData Analysis Completed.")
